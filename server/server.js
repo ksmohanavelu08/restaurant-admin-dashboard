@@ -25,6 +25,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors({
+  origin: ['restaurant-admin-dashboard-mohanavelu.netlify.app', 'http://localhost:3000'],
+  credentials: true
+}));
+
 // Routes
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Restaurant Admin API' });
