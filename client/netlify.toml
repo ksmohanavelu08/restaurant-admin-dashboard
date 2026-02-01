@@ -1,0 +1,22 @@
+# Netlify Configuration File for Restaurant Admin Dashboard
+
+# Build settings
+[build]
+  # Tell Netlify that your React app is in the 'client' folder
+  base = "client"
+  
+  # Command to build your React app
+  command = "npm run build"
+  
+  # Where the built files will be (after npm run build)
+  publish = "build"
+
+# Redirect all routes to index.html for React Router (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Optional: Set environment variables (you can also set these in Netlify dashboard)
+# [build.environment]
+#   REACT_APP_API_URL = "https://your-backend.onrender.com"
