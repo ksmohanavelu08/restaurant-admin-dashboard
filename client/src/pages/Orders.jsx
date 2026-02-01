@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { orderAPI } from '../utils/api';
 import OrderRow from '../components/OrderRow';
@@ -12,11 +12,7 @@ const Orders = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [toast, setToast] = useState(null);
 
-  useEffect(() => {
-    fetchOrders();
-  }, [selectedStatus, currentPage]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -38,7 +34,11 @@ const Orders = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedStatus, currentPage]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const handleStatusUpdate = async (orderId, newStatus) => {
     try {
@@ -65,15 +65,6 @@ const Orders = () => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
-  };
-
-  const statusCounts = {
-    All: orders.length,
-    Pending: orders.filter((o) => o.status === 'Pending').length,
-    Preparing: orders.filter((o) => o.status === 'Preparing').length,
-    Ready: orders.filter((o) => o.status === 'Ready').length,
-    Delivered: orders.filter((o) => o.status === 'Delivered').length,
-    Cancelled: orders.filter((o) => o.status === 'Cancelled').length,
   };
 
   return (

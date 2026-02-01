@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Plus, Filter } from 'lucide-react';
 import { menuAPI } from '../utils/api';
 import { useDebounce } from '../hooks/useDebounce';
@@ -20,11 +20,7 @@ const MenuManagement = () => {
   // Debounce search query
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  useEffect(() => {
-    fetchMenuItems();
-  }, [debouncedSearchQuery, selectedCategory, selectedAvailability]);
-
-  const fetchMenuItems = async () => {
+  const fetchMenuItems = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -47,7 +43,11 @@ const MenuManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [debouncedSearchQuery, selectedCategory, selectedAvailability]);
+
+  useEffect(() => {
+    fetchMenuItems();
+  }, [fetchMenuItems]);
 
   const handleCreateOrUpdate = async (formData) => {
     try {
@@ -248,3 +248,4 @@ const MenuManagement = () => {
 };
 
 export default MenuManagement;
+
