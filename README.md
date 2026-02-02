@@ -433,7 +433,7 @@ This project is created for assessment purposes.
 ---
 
 **Live URLs:**
-- Frontend: [To be deployed on Netlify]
-- Backend API: [To be deployed on Render]
+- Frontend: [https://eatnos-admin-dashboard.netlify.app]
+- Backend API: [https://restaurant-backend-ly97.onrender.com]
 
 **Note**: Follow the deployment guide above to get your live URLs!
